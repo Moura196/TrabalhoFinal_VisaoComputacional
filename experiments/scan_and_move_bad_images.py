@@ -32,7 +32,7 @@ def scan_and_move(root: Path, dest_root: Path):
                 try:
                     shutil.move(str(p), str(target))
                     moved.append((p, target))
-                    print(f"Moved corrupted file: {p} -> {target}")
+                    print(f"Arquivo corrompido movido: {p} -> {target}")
                 except Exception as me:
                     print(f"Failed to move {p}: {me}")
 
@@ -47,17 +47,17 @@ def main():
 
     root = Path(args.data_root)
     if not root.exists():
-        print(f"Data root not found: {root}")
+        print(f"Raiz de dados não encontrada: {root}")
         return 1
 
     dest_root = Path(args.out_dir)
     dest_root.mkdir(parents=True, exist_ok=True)
 
-    print(f"Scanning {root} for unreadable images...")
+    print(f"Scanneando {root} por imagens ilegíveis...")
     checked, moved = scan_and_move(root, dest_root)
-    print(f"Checked {checked} files, moved {len(moved)} corrupted files to {dest_root}")
+    print(f"Verificados {checked} arquivos, movidos {len(moved)} arquivos corrompidos para {dest_root}")
     if moved:
-        print("Sample moved files:")
+        print("Exemplo de arquivos movidos:")
         for src, dst in moved[:10]:
             print(f"  {src} -> {dst}")
 
